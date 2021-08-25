@@ -1,15 +1,14 @@
 package com.member.management.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import lombok.*;
 import io.swagger.annotations.ApiParam;
 
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Member {
     @ApiParam(value = "name", required = true)
     private String name;
@@ -20,6 +19,6 @@ public class Member {
     @ApiParam(value = "phoneNumber", required = true)
     private String phoneNumber;
 
-    @ApiParam(value = "nickName", required = true)
+    @ApiParam(value = "nickNames", required = true)
     private List<String> nickNames;
 }

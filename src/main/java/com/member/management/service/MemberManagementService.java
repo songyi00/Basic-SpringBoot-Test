@@ -23,28 +23,33 @@ public class MemberManagementService {
     private List<Member> members = new ArrayList<>();
 
     public List<Member> getMembers(){
-        this.members = memberRepository.findAllMember();
+        members = memberRepository.findAllMember();
         return  members;
     }
 
     public List<Member> getMembersByName(String name){
-        this.members = memberRepository.findMemberByName(name);
+        members = memberRepository.findMemberByName(name);
         return  members;
     }
 
     public List<Member> getMembersByPhoneNumber(String phoneNumber){
-        this.members = memberRepository.findMemberByPhoneNumber(phoneNumber);
+        members = memberRepository.findMemberByPhoneNumber(phoneNumber);
         return  members;
     }
 
     public List<Member> getMemberByAll(String name,String email,String phoneNum, String nickName){
-        this.members = memberRepository.findMemberByAll(name,email,phoneNum,nickName);
+        members = memberRepository.findMemberByAll(name,email,phoneNum,nickName);
         return members;
     }
 
     public void insertMember(Member newMember){
-        this.members = memberRepository.findAllMember();
+        members = memberRepository.findAllMember();
 
+        for (Member member : members){
+            if (member.getPhoneNumber().equals(newMember.getPhoneNumber())){
+                throw new MemberNotFoundException();
+            }
+        }
         members.add(newMember);
         memberRepository.insertMember(newMember);
     }
