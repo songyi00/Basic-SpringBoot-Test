@@ -25,4 +25,8 @@ public class MemberController {
         return memberManagementService.getMembers();
     }
 
+    @DeleteMapping("members/delete")
+    public void deleteMember(@RequestParam(value = "name") String name, @RequestParam(value = "phoneNumber") String phoneNumber){
+        memberManagementService.deleteMember(name,phoneNumber);
+    }
 }

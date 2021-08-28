@@ -8,7 +8,6 @@ import java.util.List;
 
 @Data
 @RequiredArgsConstructor
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Member {
     @ApiParam(value = "name", required = true)
     private String name;

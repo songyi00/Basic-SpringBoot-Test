@@ -37,8 +37,8 @@ public class MemberManagementService {
         return  members;
     }
 
-    public List<Member> getMemberByAll(String name,String email,String phoneNum, String nickName){
-        members = memberRepository.findMemberByAll(name,email,phoneNum,nickName);
+    public List<Member> getMemberByKey(String name,String phoneNum){
+        members = memberRepository.findMemberByKey(name,phoneNum);
         return members;
     }
 
@@ -52,6 +52,21 @@ public class MemberManagementService {
         }
         members.add(newMember);
         memberRepository.insertMember(newMember);
+    }
+
+    public void deleteMember(String name, String phoneNum){
+        boolean flag = false;
+        members = memberRepository.findMemberByKey(name,phoneNum);
+        for (Member member : members) {
+            if (member.getName().equals(name)&&member.getPhoneNumber().equals(phoneNum)){
+                memberRepository.deleteMember(name,phoneNum);
+                flag = true;
+                break;
+            }
+        }
+        if (!flag){
+            throw new MemberNotFoundException();
+        }
     }
 
 }

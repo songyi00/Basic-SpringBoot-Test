@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
 import java.util.List;
-
+// key 는 이름 + 전화번호
 @Repository
 public class MemberRepository {
     @Autowired
@@ -21,8 +21,8 @@ public class MemberRepository {
         return list;
     }
     // 전체 정보로 조회
-    public  List<Member> findMemberByAll(String name,String email,String phoneNum, String nickName){
-        Query query = new Query(new Criteria("name").is(name).and("email").is(email).and("phoneNumber").is(phoneNum).and("nickName").is(nickName));
+    public  List<Member> findMemberByKey(String name, String phoneNum){
+        Query query = new Query(new Criteria("name").is(name).and("phoneNumber").is(phoneNum));
         List<Member> list = mongoTemplate.find(query, Member.class);
         return list;
     }
@@ -41,5 +41,10 @@ public class MemberRepository {
 
     public void insertMember(Member member){
         mongoTemplate.insert(member,"member");
+    }
+
+    public void deleteMember(String name, String phoneNum){
+        Query query = new Query(new Criteria("name").is(name).and("phoneNumber").is(phoneNum));
+        mongoTemplate.remove(query,"member");
     }
 }
